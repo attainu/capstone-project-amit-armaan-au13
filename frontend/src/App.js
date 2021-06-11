@@ -5,7 +5,7 @@ import "./bootstrap.min.css";
 // import { Container, } from "react-bootstrap";
 import Routes from './routes/Routes'
 // import HomeScreen from "./screens/HomeScreen"
-import Crousel from './components/Crousel'
+// import Crousel from './components/Crousel'
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <Header />
       <main>
         
-        <Crousel/>
+        
           <Routes/>
       
       </main>

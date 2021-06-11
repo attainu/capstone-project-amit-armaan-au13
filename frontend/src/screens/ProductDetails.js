@@ -12,7 +12,7 @@ useEffect(() => {
     SetProduct(data);
   };
   fetchProduct();
-}, []);
+}, [match]);
   return (
     <>
       <Link to="/">
