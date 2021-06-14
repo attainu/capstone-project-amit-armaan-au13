@@ -13,7 +13,7 @@ const Routes=()=>{
           component={ProductDetails}
         ></Route>
         <Route
-          path="/cart"
+          path="/cart/:?id"
           exact
           component={Cart}
         ></Route>

@@ -62,7 +62,7 @@ const orderSchema = mongoose.Schema(
     },
 
     isDelivered: {
-      tpye: Boolean,
+      type: Boolean,
       required: true,
       default: false,
     },
