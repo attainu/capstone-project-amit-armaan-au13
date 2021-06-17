@@ -9,7 +9,7 @@ import productItemDetail from '../action/productDetailsAction'
 
 const ProductDetails = ({ history,match }) => {
 
-  const[Qty,setQty] = useState(0)
+  const[Qty,setQty] = useState(1)
   const dispatch = useDispatch();
 
   useEffect(() => {

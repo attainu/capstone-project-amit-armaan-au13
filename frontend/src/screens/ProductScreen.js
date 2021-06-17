@@ -9,7 +9,7 @@ function ProductScreen(props) {
     <>
       <Card className="my-3 p-3 rounded">
         <Link to={`/productDetails/${props.items._id}`}>
-          <Card.Img src={props.items.image} variant="top" />
+          <Card.Img src={props.items.image} variant="top"/>
         </Link>
         <Card.Body>
           <Link to={`/productDetails/${props.items._id}`}>

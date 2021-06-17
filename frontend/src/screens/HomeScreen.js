@@ -3,9 +3,8 @@ import React, { useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import listProducts from "../action/productActions";
 import Loader from "../components/loader";
-// import products from "../products";
 import Product from "../screens/ProductScreen";
-// import axios from 'axios'
+
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -15,11 +14,10 @@ const HomeScreen = () => {
   }, [dispatch]);
   const productList = useSelector((state) => state.productList);
   const { loading, error, productItems } = productList;
-  console.log(productList)
 
   return (
     <>
-      <h2>Latest  Products</h2>
+      <h3>Most Common Health Products</h3>
       {loading ? (
         <Loader />
       ) : error ? (
