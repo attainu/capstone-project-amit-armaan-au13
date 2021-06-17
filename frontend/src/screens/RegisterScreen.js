@@ -85,6 +85,7 @@ const RegisterScreen = ({ location, history }) => {
         <Form.Group>
           <Form.Label>Conform Password</Form.Label>
           <Form.Control
+          autoComplete='off'
             type="password"
             placeholder="Conform password"
             value={conformPassword}

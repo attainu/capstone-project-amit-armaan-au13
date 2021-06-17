@@ -4,7 +4,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
-} from "../constants/userConstant";
+} from "../constants/userLoginConstant";
 
 export const userLoginReducer  = (state = { }, {type,payload}) => {
   switch (type) {

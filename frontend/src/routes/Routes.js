@@ -3,8 +3,9 @@ import HomeScreen from '../screens/HomeScreen'
 import ProductDetails from '../screens/ProductDetails'
 import Cart from '../components/Cart'
 // import Login from '../components/Login'
-import LoginScreen from '../screens/loginScreen';
+import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from "../screens/RegisterScreen";
+import ProfileScreen from '../screens/ProfileScreen';
 const Routes=()=>{
     return (
       <>
@@ -18,6 +19,7 @@ const Routes=()=>{
         <Route path="/login" exact component={LoginScreen}></Route>
 
         <Route path="/register" exact component={RegisterScreen}></Route>
+        <Route path="/profile" exact component={ProfileScreen}></Route>
       </>
     );
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { USER_LOGIN_SUCCESS } from "../constants/userConstant";
+import { USER_LOGIN_SUCCESS } from "../constants/userLoginConstant";
 import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
