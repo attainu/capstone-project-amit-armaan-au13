@@ -1,5 +1,5 @@
 import axios from "axios";
-import { USER_LOGIN_SUCCESS } from "../constants/userLoginConstant";
+
 import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS } from "../constants/userDetailsConstants";
 
 

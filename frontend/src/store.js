@@ -4,17 +4,22 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { productListReducer } from "./reducers/productReducers";
 import { productDetailsReducer } from "./reducers/productDetailsReducer";
 import { cartReducer } from "./reducers/cartReducers";
-import { userLoginReducer } from "./reducers/userReducers";
+import { userLoginReducer } from "./reducers/userLoginReducers";
 import { userRegisterReducer} from "./reducers/userRegisterReducer";
 import { userDetailsReducer} from './reducers/userDetailsReducer'
-
+import { userUpdateProfileReducer} from "./reducers/userUpdateProfileReducer";
+import { userListReducer } from "./reducers/userListReducer";
+import { userDeleteReducer } from "./reducers/userDeleteReducer";
 const reducer = combineReducers({
   productList: productListReducer,
   product_Item: productDetailsReducer,
   cart: cartReducer,
-  userLogin:userLoginReducer,
-  userRegister:userRegisterReducer,
-  userDetail:userDetailsReducer
+  userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
+  userDetail: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
+  userList:userListReducer,
+  userDelete:userDeleteReducer
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')):[]

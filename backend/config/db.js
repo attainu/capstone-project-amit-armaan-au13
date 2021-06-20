@@ -9,7 +9,7 @@ const connectDB = async () =>{
         })
         console.log(`mongodb connected: ${conn.connection.host}`)
     } catch (error) {
-        console.log(`Erroe: ${error.message}`)
+        console.log(`Error: ${error.message}`)
     }
 }
 export default connectDB

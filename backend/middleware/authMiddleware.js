@@ -24,4 +24,16 @@ const protect = asyncHandler(async (req, res, next) => {
     res.status(401).send("Not Authorized, no token");
   }
 });
-export default protect;
+
+const isAdmin = (req,res,next)=>{
+  if(req.user && req.user.isAdmin){
+    next()
+  }
+  else{
+    res.json({
+      "error":401,
+      "message":"Not Authorized as an admin"
+    })
+  }
+}
+export {protect,isAdmin};

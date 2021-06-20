@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/loader";
-import { getUserDetails } from "../action/userDetailsAction";
+import { updateUserProfile } from "../action/userUpdateProfileAction";
+import { getUserDetails} from '../action/userDetailsAction'
+
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userUpdateConstants";
 const ProfileScreen = ({ location, history }) => {
-  console.log(location);
+  
+
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,15 +23,20 @@ const ProfileScreen = ({ location, history }) => {
   const { loading, error, user } = userDetail;
 
   const userLogin = useSelector((state)=>state.userLogin)
+
   const{ userInfo } = userLogin
 
+
+   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+   const { success } = userUpdateProfile;
 
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
     }
     else{
-        if(!user.name){
+        if(!user.name ||success){
+          dispatch({type:USER_UPDATE_PROFILE_RESET})
             dispatch(getUserDetails('profile'))
         }
         else{
@@ -34,7 +44,7 @@ const ProfileScreen = ({ location, history }) => {
             setEmail(user.email)
         }
     }
-  }, [history, dispatch, userInfo,user]);
+  }, [history, dispatch, userInfo, user,success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -42,6 +52,7 @@ const ProfileScreen = ({ location, history }) => {
       setMessage("password do not match");
     } else {
     //dispatch update profile
+    dispatch(updateUserProfile({id:user._id,name,email,password}))
     }
   };
 
@@ -49,9 +60,11 @@ const ProfileScreen = ({ location, history }) => {
     <Row>
       <Col md={3}>
         <h1>User Profile</h1>
+        <img src="https://tse3.mm.bing.net/th?id=OIP.BYlUhGXWlMNsV1FFUisMFAHaH7&pid=Api&P=0&w=300&h=300" style={{borderRadius:"50px"}}></img>
         {loading && <Loader></Loader>}
         {message && <h2>{message}</h2>}
         {error && <h1>{error}</h1>}
+        {success && <h1>profile updates successfully</h1>}
 
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">
@@ -75,7 +88,6 @@ const ProfileScreen = ({ location, history }) => {
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
-         
 
           <br></br>
           <Button type="submit" variant="primary">

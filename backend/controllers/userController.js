@@ -32,7 +32,7 @@ const authUser =  asyncHandler(async (req, res) => {
 
 
 //@description: Register a new user
-//@route: Post/api/user/login
+//@route: Post/api/users
 //@access: public
 
 const registerUser =  asyncHandler(async (req, res) => {
@@ -40,7 +40,7 @@ const registerUser =  asyncHandler(async (req, res) => {
   const userExist = await User.findOne({email})
 
   if (userExist){
-    res.status(400).json({
+    res.json({
       error:400,
       message:"user already exists"
     })
@@ -62,7 +62,7 @@ if(user){
   })
 }
 else{
-  res.status(400).json({
+  res.json({
     error:400,
     message:"Invalid user data"
   })
@@ -75,7 +75,7 @@ else{
 //@route: Get/api/users/profile
 //@access: private
 
-const getUserProfile = async (req, res) => {
+const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
   if(user){
     res.json({
@@ -86,17 +86,41 @@ const getUserProfile = async (req, res) => {
     });
   }
   else{
-    res.status(404)
-    throw new Error('User not found')
+    res.json({ error: 404, message: "User Not Found" });
   }
-};
+});
 
+
+//@description: Get all users
+//@route: Get/api/users
+//@access: private/admin
+
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({})
+  res.json(users)
+});
+
+//@description: Delete a user
+//@route: Delete/api/users/:id
+//@access: private/admin
+
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+  if(user){
+    await user.remove()
+    res.json({"message":"user deleted"})
+  }
+  else{
+    res.json({"error":404,
+  "message":"user not found"})
+  }
+});
 
 //@description: update user profile
 //@route: put/api/users/profile
 //@access: private
 
-const updateUserProfile = async (req, res) => {
+const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
   if(user){
     user.name = req.body.name || user.name,
@@ -115,10 +139,51 @@ const updateUserProfile = async (req, res) => {
     });
   }
   else{
-    res.status(404).send("User not found");
-    // throw new Error('User not found')
+       res.json({ error: 404, message: "User Not Found" });
+  
   }
-};
+});
+
+//@description: Get user by id
+//@route: Get/api/users/:id
+//@access: private/admin
+
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password')
+  if(user){
+    res.json({user})
+  }
+  else{
+    res.json({"error":404,
+  "message":"user not found"})
+  }
+});
 
 
-export { authUser , getUserProfile, registerUser, updateUserProfile};
+//@description: update user 
+//@route: put/api/users/:id
+//@access: private/Admin
+
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+  if(user){
+    user.name = req.body.name || user.name,
+    user.email = req.body.email || user.email
+    user.isAdmin=req.body.isAdmin ||user.isAdmin
+   
+    const updatedUser = await user.save()
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  }
+  else{
+    res.json({"error":404,
+  "message":"User Not Found"})
+  
+  }
+});
+
+export { authUser , getUserProfile, getUsers ,registerUser, updateUserProfile, deleteUser,updateUser,getUserById};
