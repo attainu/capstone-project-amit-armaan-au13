@@ -1,6 +1,6 @@
 import React from "react";
 
-const Rating = ({ value, text,color }) => {
+const Rating = ({ value, text, color }) => {
   return (
     <div className="rating">
       <span>
@@ -45,7 +45,7 @@ const Rating = ({ value, text,color }) => {
           className={
             value >= 4
               ? "fas fa-star"
-              : value >= 4.5
+              : value >= 3.5
               ? "fas fa-star-half-alt"
               : "far fa-star"
           }
@@ -66,6 +66,10 @@ const Rating = ({ value, text,color }) => {
       <span>{text && text}</span>
     </div>
   );
+};
+
+Rating.defaultProps = {
+  color: "#f8e825",
 };
 
 export default Rating;

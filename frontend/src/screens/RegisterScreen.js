@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/loader";
-import { register } from "../action/userRegisterAction";
+import Message from "../components/Message";
+import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
+import { register } from "../actions/userActions";
+
 const RegisterScreen = ({ location, history }) => {
-  console.log(location);
-  const[name,setName] = useState("")
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const[conformPassword,setConformPassword] = useState("")
-  const[message,setMessage] = useState("")
-
-
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
 
   const userRegister = useSelector((state) => state.userRegister);
-
   const { loading, error, userInfo } = userRegister;
-  console.log(userInfo);
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
@@ -28,35 +25,29 @@ const RegisterScreen = ({ location, history }) => {
     if (userInfo) {
       history.push(redirect);
     }
-  }, [history, redirect, userInfo]);
+  }, [history, userInfo, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if(password!==conformPassword){
-        setMessage('password do not match')
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match");
+    } else {
+      dispatch(register(name, email, password));
     }
-    else{
-         dispatch(register(name, email, password));
-    }
-
-    //dispatch register
-   
   };
 
   return (
     <FormContainer>
       <h1>Sign Up</h1>
-      {loading && <Loader></Loader>}
-      {message && <h2>{message}</h2>}
-      {error && <h1>{error}</h1>}
-
+      {message && <Message variant="danger">{message}</Message>}
+      {error && <Message variant="danger">{error}</Message>}
+      {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            type="text"
-            autoComplete="off"
-            placeholder="Name"
+            type="name"
+            placeholder="Enter name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>
@@ -66,42 +57,40 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type="email"
-            autoComplete="off"
-            placeholder="email"
+            placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group>
+
+        <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="password"
+            placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Conform Password</Form.Label>
+        <Form.Group controlId="confirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
           <Form.Control
-          autoComplete='off'
             type="password"
-            placeholder="Conform password"
-            value={conformPassword}
-            onChange={(e) => setConformPassword(e.target.value)}
+            placeholder="Confirm password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <br></br>
         <Button type="submit" variant="primary">
-          {" "}
           Register
         </Button>
       </Form>
+
       <Row className="py-3">
         <Col>
-          Have an account?{" "}
+          Have an Account?{" "}
           <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
             Login
           </Link>
