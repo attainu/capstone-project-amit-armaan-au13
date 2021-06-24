@@ -4,21 +4,25 @@ import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { saveShippingAddress } from "../actions/cartActions";
-
+//when we submit the shipping form then we want to redirect to payment screen so we need history as  history.push("/payment")
 const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
+
+const [State, setState] = useState(shippingAddress.State);
+
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
+  
   const [country, setCountry] = useState(shippingAddress.country);
 
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(saveShippingAddress({ address, city, postalCode, country }));
+    dispatch(saveShippingAddress({ address, city, State,postalCode, country }));
     history.push("/payment");
   };
 
@@ -46,6 +50,17 @@ const ShippingScreen = ({ history }) => {
             value={city}
             required
             onChange={(e) => setCity(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="State">
+          <Form.Label>State</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter state"
+            value={State}
+            required
+            onChange={(e) => setState(e.target.value)}
           ></Form.Control>
         </Form.Group>
 

@@ -64,7 +64,7 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
   ? JSON.parse(localStorage.getItem("shippingAddress"))
   : {};
-
+//in case if we want the already stored data in our state, so we need to access from local storage and hold in our state.
 const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
