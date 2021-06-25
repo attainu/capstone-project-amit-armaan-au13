@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 const Paginate = ({ pages, page, isAdmin = false, keyword = "" }) => {
   return (
     pages > 1 && (
+      <>
       <Pagination>
         {[...Array(pages).keys()].map((x) => (
           <LinkContainer
@@ -21,6 +22,7 @@ const Paginate = ({ pages, page, isAdmin = false, keyword = "" }) => {
           </LinkContainer>
         ))}
       </Pagination>
+      </>
     )
   );
 };

@@ -5,7 +5,6 @@ import { Row, Col,Button } from "react-bootstrap";
 import Product from "../components/Product";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import CoronaTracker from "../covid19/CoronaTracker";
 import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
 import Meta from "../components/Meta";
@@ -13,8 +12,6 @@ import { listProducts } from "../actions/productActions";
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
-  console.log(keyword)
-  console.log(match.params)
 
   const pageNumber = match.params.pageNumber || 1;
 

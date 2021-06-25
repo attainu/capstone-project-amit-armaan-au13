@@ -2,13 +2,12 @@
   margin: 0;
 }
 
-body {
-  /* background-color: #98dbe0; */
-}
+
 .app {
   display: flex;
   justify-content: space-evenly;
   padding: 20px;
+  background-color: #98dbe0;
 }
 .app__header {
   display: flex;

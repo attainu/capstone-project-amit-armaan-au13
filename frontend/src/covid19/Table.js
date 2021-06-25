@@ -3,7 +3,7 @@ import numeral from "numeral";
 import "./Table.css";
 function table(props) {
   return (
-    <div className="table">
+    <div className="able">
       {props.countries.map(({ country, cases }) => (
         <tr>
           <td>{country}</td>
